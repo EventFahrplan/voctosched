@@ -4,12 +4,12 @@ import sys
 from time import strftime, localtime
 
 schedule_url = "ADD URL HERE"
-print( "## getting meta data from " + schedule_url + " ##")
+print("## getting meta data from " + schedule_url + " ##")
 global frab_data
 try:
     frab_data = urllib.request.urlopen(schedule_url)
 except:
-    print( "Could not load schedule xml. Please check url")
+    print("Could not load schedule xml. Please check url")
     sys.exit(1)
 
 tree = ET.parse(frab_data)
@@ -28,6 +28,6 @@ for day in root.iter('day'):
     for event in day.iter('event'):
         # Append ISO 8601 date; example: 2016-02-29T23:42:00+01:00
         event.append(ET.Element('date'))
-        event.find('date').text = date +  "T" + event.find('start').text + ":00+01:00"
+        event.find('date').text = date + "T" + event.find('start').text + ":00+01:00"
 
 tree.write("test.xml")
